@@ -11,7 +11,7 @@ function setBindings(){
   table.addEventListener("click", selectItem,  false);
 }
 function setKeyboardEvents(){
-  document.onkeypress = function(e){
+  document.addEventListener("keydown", function(e){
   
     switch (e.keyCode){
       case 37:
@@ -33,11 +33,17 @@ function setKeyboardEvents(){
           addRow();
         }
         break;
+      case 46:
+        if(e.shiftKey){
+          deleteColumn();
+        }else{
+          deleteRow();
+        }
+        break;
       default:
-        console.log("default", e.keyCode);
         break;
     }
-  };
+  },false);
 }
 function moveLeft(){
   console.log('left');
@@ -56,6 +62,12 @@ function addColumn(){
 }
 function addRow(){
   console.log("add row");
+}
+function deleteColumn(){
+  console.log("delete column");
+}
+function deleteRow(){
+  console.log("delete row");
 }
 setKeyboardEvents();
 setBindings();
