@@ -36,6 +36,8 @@ function keySelect(id){
     selectedId = id;
     clearSelect();
     cell.className = "selected";
+  }else{
+    keySelect("00");
   }
 }
 
@@ -111,28 +113,31 @@ function moveDown(){
   keySelect(id);
 }
 function addColumn(){
-
-  if(_columns <10){
+  if(_columns >0 && _columns <10 ){
     _columns = _columns + 1;
     generateField(_rows,_columns);
   }
   keySelect(selectedId);
 }
 function addRow(){
-  if(_rows <10){
+  if(_rows >0 && _rows <10){
     _rows = _rows + 1;
     generateField(_rows,_columns);
   }
   keySelect(selectedId);
 }
 function deleteColumn(){
-  _columns = _columns - 1;
-  generateField(_rows,_columns);
+  if(_columns >1 && _columns <10 ){
+    _columns = _columns - 1;
+    generateField(_rows,_columns);
+  }
   keySelect(selectedId);
 }
 function deleteRow(){
-  _rows = _rows - 1;
-  generateField(_rows,_columns);
+  if(_rows >1 && _rows <10){
+    _rows = _rows - 1;
+    generateField(_rows,_columns);
+  }
   keySelect(selectedId);
 }
 
