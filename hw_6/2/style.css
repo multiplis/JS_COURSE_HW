@@ -12,14 +12,18 @@
 }
 #field div div{
   float:left;
-  border:1px solid #ccc;
-  width:100px;
+  margin:1px;
+  padding:0 5px;
+  width:110px;
   height:20px;
   text-align:center;
   color:#000;
   font-family:arial;
-  margin:1px;
-  }
+  border:1px solid #ccc;
+  overflow:hidden;
+  white-space:nowrap;
+  box-sizing:border-box;
+}
 #field .selected {
   border:1px solid green;
 }
@@ -41,4 +45,5 @@
 }
 .controls span{
   font-weight:bold;
+  
 }

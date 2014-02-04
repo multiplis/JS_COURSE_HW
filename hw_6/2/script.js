@@ -25,8 +25,8 @@ function clearSelect(){
   });
 }
 function clickSelect(item){  
+  lockValue();  
   clearSelect();
-  
   selectedId = item.target.id;
   item.target.className = "selected";
 }
@@ -47,21 +47,26 @@ function setBindings(){
 }
 function setKeyboardEvents(){
   document.addEventListener("keyup", function(e){
-  
+
     switch (e.keyCode){
       case 37:
+        lockValue();
         moveLeft();
         break;
       case 38:
+        lockValue();
         moveUp();
         break;
       case 39:
+        lockValue();
         moveRight();
         break;
       case 40:
+        lockValue();
         moveDown();
         break;
       case 13:
+        lockValue();
         if(e.shiftKey){
           addColumn();
         }else{
@@ -69,11 +74,15 @@ function setKeyboardEvents(){
         }
         break;
       case 46:
+        lockValue();
         if(e.shiftKey){
           deleteColumn();
         }else{
           deleteRow();
         }
+        break;
+      case 32:
+        editValue();
         break;
       default:
         break;
@@ -140,8 +149,12 @@ function deleteRow(){
   }
   keySelect(selectedId);
 }
-
-
+function editValue(){
+  document.getElementById(selectedId).setAttribute("contenteditable", true);
+}
+function lockValue(){
+  document.getElementById(selectedId).setAttribute("contenteditable", false);
+}
 
 generateField(_rows,_columns);
 keySelect(selectedId);
