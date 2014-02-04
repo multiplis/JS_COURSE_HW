@@ -1,12 +1,44 @@
-/* Styles go here */
-td{
-  border:2px solid #ccc;
+*{
+  margin: 0;
+  padding:0;
+  font-family:arial;
+  list-style:none;
+}
+#field{
+  float:left;
+}
+#field>div {
+  clear:both;
+}
+#field div div{
+  float:left;
+  border:1px solid #ccc;
   width:100px;
   height:20px;
   text-align:center;
   color:#000;
   font-family:arial;
+  margin:1px;
   }
-.selected {
-  border:2px solid #000;
+#field .selected {
+  border:1px solid green;
+}
+#field:after{
+  content:"";
+  display:block;
+  clear:both;
+}
+.controls{
+  clear:both;
+  padding:50px 20px ;
+  font-size:15px;
+}
+.controls p{
+  font-size:15px;
+}
+.controls h3{
+  padding:10px 0;
+}
+.controls span{
+  font-weight:bold;
 }

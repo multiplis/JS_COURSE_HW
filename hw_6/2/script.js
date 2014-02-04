@@ -1,17 +1,50 @@
-function selectItem(item){  
+var selectedId ="00";
+var _rows = 3;
+var _columns = 4;
+function generateField(rows, columns){
+  var row, cell,rowInner;
+  var field = document.getElementById("field");
+  field.innerHTML ="";
+  for(var i =0; i < rows; i++){
+    rowInner ="";
+    row = document.createElement("div");
+    row.setAttribute("id", i);
+    for (var j =0; j <columns; j++){
+      column = document.createElement("div");
+      column.setAttribute("id", ""+i+j);
+      row.appendChild(column);
+    }
+    field.appendChild(row);
+  }
+}
+function clearSelect(){
   var select = document.getElementsByClassName("selected");
   Array.prototype.forEach.call(select, function(cell){
     cell.className = "";
-  });  
+
+  });
+}
+function clickSelect(item){  
+  clearSelect();
+  
+  selectedId = item.target.id;
   item.target.className = "selected";
+}
+function keySelect(id){
+  var cell = document.getElementById(id);
+  if(cell){
+    selectedId = id;
+    clearSelect();
+    cell.className = "selected";
+  }
 }
 
 function setBindings(){
-  var table = document.getElementById("field");
-  table.addEventListener("click", selectItem,  false);
+  var field = document.getElementById("field");
+  field.addEventListener("click", clickSelect,  false);
 }
 function setKeyboardEvents(){
-  document.addEventListener("keydown", function(e){
+  document.addEventListener("keyup", function(e){
   
     switch (e.keyCode){
       case 37:
@@ -46,28 +79,66 @@ function setKeyboardEvents(){
   },false);
 }
 function moveLeft(){
-  console.log('left');
+  var id;
+  if(selectedId.length === 2 ){
+    id = selectedId.split("")[0]+(parseInt(selectedId.split("")[1]) - 1); 
+  }
+  keySelect(id);
 }
 function moveUp(){
-  console.log('up');
+  var id;
+  if(selectedId.length === 2 ){
+    id =(parseInt(selectedId.split("")[0]) - 1)+ selectedId.split("")[1]; 
+  }else{
+    id = parseInt(selectedId) - 1+"";
+  }
+  keySelect(id);
 }
 function moveRight(){
-  console.log('right');
+  var id;
+  if(selectedId.length === 2 ){
+    id = selectedId.split("")[0]+(parseInt(selectedId.split("")[1]) + 1); 
+  }
+  keySelect(id);
 }
 function moveDown(){
-  console.log('down');
+  var id;
+  if(selectedId.length === 2 ){
+    id =(parseInt(selectedId.split("")[0]) + 1)+ selectedId.split("")[1]; 
+  }else{
+    id = parseInt(selectedId) + 1+"";
+  }
+  keySelect(id);
 }
 function addColumn(){
-  console.log("add column");
+
+  if(_columns <10){
+    _columns = _columns + 1;
+    generateField(_rows,_columns);
+  }
+  keySelect(selectedId);
 }
 function addRow(){
-  console.log("add row");
+  if(_rows <10){
+    _rows = _rows + 1;
+    generateField(_rows,_columns);
+  }
+  keySelect(selectedId);
 }
 function deleteColumn(){
-  console.log("delete column");
+  _columns = _columns - 1;
+  generateField(_rows,_columns);
+  keySelect(selectedId);
 }
 function deleteRow(){
-  console.log("delete row");
+  _rows = _rows - 1;
+  generateField(_rows,_columns);
+  keySelect(selectedId);
 }
+
+
+
+generateField(_rows,_columns);
+keySelect(selectedId);
 setKeyboardEvents();
 setBindings();
